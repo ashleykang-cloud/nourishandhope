@@ -72,14 +72,20 @@ exports.handler = async function(event, context) {
       });
       const data = await response.json();
       if (data.access_token) {
-        const profileResponse = await fetch(`${SUPABASE_URL}/rest/v1/profiles?id=eq.${data.user.id}`, {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${data.access_token}`
-          }
-        });
-        const profiles = await profileResponse.json();
-        data.role = profiles[0] ? profiles[0].role : null;
+        try {
+          const profileResponse = await fetch(
+            `${SUPABASE_URL}/rest/v1/profiles?id=eq.${data.user.id}&select=role`, {
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': `Bearer ${data.access_token}`,
+              'Accept': 'application/json'
+            }
+          });
+          const profiles = await profileResponse.json();
+          data.role = profiles && profiles[0] ? profiles[0].role : null;
+        } catch(e) {
+          data.role = null;
+        }
       }
       return {
         statusCode: 200,
