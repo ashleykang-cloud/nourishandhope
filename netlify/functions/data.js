@@ -1,4 +1,12 @@
 exports.handler = async function(event, context) {
+  if (event.httpMethod === 'GET') {
+    return {
+      statusCode: 200,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ status: 'warm' })
+    };
+  }
+  
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
