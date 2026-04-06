@@ -27,27 +27,40 @@ exports.handler = async function(event, context) {
           'Content-Type': 'application/json',
           'apikey': SUPABASE_KEY
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ 
+          email, 
+          password,
+          options: {
+            data: { role: role }
+          }
+        })
       });
       const data = await response.json();
-      if (data.user && role) {
+      
+      if (data.user && data.access_token && role) {
         await fetch(`${SUPABASE_URL}/rest/v1/profiles`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${data.access_token}`
+            'Authorization': `Bearer ${data.access_token}`,
+            'Prefer': 'return=representation'
           },
-          body: JSON.stringify({ id: data.user.id, role: role })
+          body: JSON.stringify({ 
+            id: data.user.id, 
+            role: role 
+          })
         });
       }
+      
+      data.role = role;
+      
       return {
         statusCode: 200,
         headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       };
     }
-
     if (action === 'login') {
       const response = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
         method: 'POST',
