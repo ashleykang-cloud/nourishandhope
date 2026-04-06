@@ -40,9 +40,26 @@ exports.handler = async function(event, context) {
     }
 
     if (action === 'insert') {
+      const userResponse = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const userData = await userResponse.json();
+      const userId = userData.id;
+      const dataWithUser = Object.assign({}, data, { user_id: userId });
+    
       const response = await fetch(
         `${SUPABASE_URL}/rest/v1/${table}`,
-        { method: 'POST', headers: { ...headers, 'Prefer': 'return=representation' }, body: JSON.stringify(data) }
+        {
+          method: 'POST',
+          headers: {
+            ...headers,
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(dataWithUser)
+        }
       );
       const result = await response.json();
       return {
