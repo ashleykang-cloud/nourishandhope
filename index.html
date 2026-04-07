@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nourish & Hope — Support for Families Navigating Eating Disorders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #5C7A5F;
+      --green-light: #EBF2EC;
+      --green-dark: #3B5E3D;
+      --peach: #E8836A;
+      --peach-light: #FDF0EC;
+      --cream: #FAF7F2;
+      --blue: #6A9BB8;
+      --blue-light: #EAF3F9;
+      --purple: #9B6AB0;
+      --text: #2D2D2A;
+      --text-secondary: #5A5750;
+      --text-light: #8C897F;
+      --border: #EDE8DF;
+      --card: #FFFFFF;
+      --shadow: 0 4px 24px rgba(45,45,42,0.08);
+      --shadow-lg: 0 12px 48px rgba(45,45,42,0.12);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,247,242,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between; height: 68px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { width: 36px; height: 36px; background: var(--green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--green); }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta { background: var(--green); color: white !important; padding: 10px 20px; border-radius: 40px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--green-dark) !important; }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    .hero { min-height: 100vh; padding: 120px 5% 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(92,122,95,0.08) 0%, transparent 70%); border-radius: 50%; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--green-light); color: var(--green-dark); padding: 8px 16px; border-radius: 40px; font-size: 13px; font-weight: 500; margin-bottom: 24px; border: 1px solid rgba(92,122,95,0.2); }
+    .hero h1 { font-size: clamp(36px, 5vw, 60px); color: var(--text); margin-bottom: 24px; letter-spacing: -0.02em; }
+    .hero h1 em { color: var(--green); font-style: italic; }
+    .hero-desc { font-size: 17px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 40px; max-width: 480px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn-primary { background: var(--green); color: white; padding: 16px 32px; border-radius: 40px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(92,122,95,0.3); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(92,122,95,0.4); }
+    .btn-secondary { background: white; color: var(--text); padding: 16px 32px; border-radius: 40px; font-size: 15px; font-weight: 500; text-decoration: none; border: 1.5px solid var(--border); transition: all 0.2s; }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+    .hero-crisis { display: flex; align-items: center; gap: 12px; background: white; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 14px 20px; max-width: fit-content; }
+    .hero-crisis-dot { width: 10px; height: 10px; background: var(--peach); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(1.2)} }
+    .hero-crisis-text { font-size: 13px; color: var(--text-secondary); }
+    .hero-crisis-text a { color: var(--green); font-weight: 600; text-decoration: none; }
+
+    .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+    .phone-mockup { width: 260px; background: white; border-radius: 40px; padding: 16px; box-shadow: var(--shadow-lg), 0 0 0 8px rgba(92,122,95,0.06); position: relative; z-index: 2; animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)} }
+    .phone-screen { background: var(--cream); border-radius: 28px; padding: 24px 18px; min-height: 460px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+    .phone-logo { font-size: 36px; }
+    .phone-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--green); text-align: center; }
+    .phone-subtitle { font-size: 11px; color: var(--text-secondary); text-align: center; line-height: 1.5; }
+    .phone-question { font-size: 14px; font-weight: 600; color: var(--text); margin-top: 6px; }
+    .phone-btn { width: 100%; border: none; border-radius: 12px; padding: 14px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; justify-content: center; color: white; }
+    .phone-btn-parent { background: var(--green); }
+    .phone-btn-kid { background: var(--peach); }
+    .phone-crisis-line { font-size: 10px; color: var(--text-light); text-align: center; }
+    .hero-floating-card { position: absolute; background: white; border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); border: 1px solid var(--border); font-size: 13px; z-index: 3; max-width: 180px; }
+    .hero-floating-card-1 { top: 8%; right: -10px; animation: float 7s ease-in-out infinite 1s; }
+    .hero-floating-card-2 { bottom: 12%; left: -20px; animation: float 8s ease-in-out infinite 2s; }
+    .floating-card-icon { font-size: 18px; margin-bottom: 4px; }
+    .floating-card-title { font-weight: 600; color: var(--text); margin-bottom: 2px; font-size: 13px; }
+    .floating-card-desc { color: var(--text-secondary); font-size: 11px; }
+
+    section { padding: 100px 5%; }
+    .section-label { display: inline-block; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--green); margin-bottom: 16px; }
+    .section-title { font-size: clamp(26px, 4vw, 42px); color: var(--text); margin-bottom: 16px; letter-spacing: -0.02em; }
+    .section-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 600px; }
+    .section-header { margin-bottom: 56px; }
+    .section-header.centered { text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+    .stats { background: var(--green); padding: 60px 5%; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 40px; max-width: 1000px; margin: 0 auto; text-align: center; }
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 700; color: white; line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.4; }
+
+    .how-it-works { background: white; }
+    .paths-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .path-card { border-radius: 24px; padding: 36px; }
+    .path-card-parent { background: var(--green-light); border: 1.5px solid rgba(92,122,95,0.2); }
+    .path-card-kid { background: var(--peach-light); border: 1.5px solid rgba(232,131,106,0.2); }
+    .path-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 18px; }
+    .path-icon-parent { background: var(--green); }
+    .path-icon-kid { background: var(--peach); }
+    .path-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .path-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; }
+    .path-features { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .path-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text); }
+    .path-features li::before { content: '✓'; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .path-card-parent .path-features li::before { background: var(--green); color: white; }
+    .path-card-kid .path-features li::before { background: var(--peach); color: white; }
+
+    .features { background: var(--cream); }
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .feature-card { background: white; border-radius: var(--radius); padding: 28px; border: 1px solid var(--border); transition: all 0.3s; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--green); }
+    .feature-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; }
+    .feature-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .feature-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+    .mealtime { background: white; }
+    .mealtime-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .tips-list { display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+    .tip-item { display: flex; gap: 14px; align-items: flex-start; }
+    .tip-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .tip-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .tip-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .scripts-panel { display: flex; flex-direction: column; gap: 14px; }
+    .script-card { background: var(--cream); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    .script-situation { padding: 12px 16px; font-size: 12px; font-weight: 600; color: white; }
+    .script-body { padding: 14px; }
+    .script-try { background: var(--green-light); border-radius: 8px; padding: 10px; margin-bottom: 8px; }
+    .script-avoid { background: #FCEBEB; border-radius: 8px; padding: 10px; }
+    .script-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+    .script-try .script-label { color: var(--green-dark); }
+    .script-avoid .script-label { color: #A32D2D; }
+    .script-text { font-size: 12px; line-height: 1.6; font-style: italic; }
+    .script-try .script-text { color: var(--text); }
+    .script-avoid .script-text { color: #5A5750; }
+
+    .understanding { background: var(--cream); }
+    .tabs { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+    .tab { padding: 9px 18px; border-radius: 40px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--border); background: white; color: var(--text-secondary); transition: all 0.2s; }
+    .tab.active { background: var(--green); color: white; border-color: var(--green); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .ed-types-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .ed-card { background: white; border-radius: var(--radius); padding: 22px; border: 1px solid var(--border); border-left: 4px solid var(--green); }
+    .ed-card-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .ed-card-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 10px; }
+    .ed-symptoms { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .ed-symptoms li { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 7px; }
+    .ed-symptoms li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .myths-grid { display: flex; flex-direction: column; gap: 14px; }
+    .myth-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    .myth-section { padding: 14px 18px; display: flex; gap: 10px; align-items: flex-start; }
+    .myth-section.myth-part { background: #FCEBEB; }
+    .myth-section.fact-part { background: var(--green-light); }
+    .myth-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; flex-shrink: 0; margin-top: 2px; }
+    .myth-section.myth-part .myth-label { color: #A32D2D; }
+    .myth-section.fact-part .myth-label { color: var(--green-dark); }
+    .myth-text { font-size: 13px; line-height: 1.6; }
+    .myth-section.myth-part .myth-text { color: #A32D2D; font-style: italic; }
+    .myth-section.fact-part .myth-text { color: var(--green-dark); }
+    .therapies-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+    .therapy-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+    .therapy-header { padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+    .therapy-abbr { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; color: white; flex-shrink: 0; }
+    .therapy-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .therapy-best { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+    .therapy-body { padding: 0 18px 18px; }
+    .therapy-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 10px; }
+    .therapy-points { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .therapy-points li { font-size: 12px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 7px; line-height: 1.5; }
+    .therapy-points li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+
+    .coping { background: white; }
+    .coping-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+    .coping-card { border-radius: var(--radius); padding: 28px; }
+    .breathing-card { background: linear-gradient(135deg, var(--green-light), white); border: 1.5px solid rgba(92,122,95,0.2); display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .breathing-circle { width: 140px; height: 140px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; margin: 20px auto; animation: breathe 8s ease-in-out infinite; }
+    @keyframes breathe { 0%,100%{transform:scale(0.7);opacity:0.4}35%,65%{transform:scale(1);opacity:1} }
+    .breathing-number { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 700; color: white; }
+    .breathing-phase { font-size: 15px; font-weight: 600; color: var(--green); margin-top: 6px; }
+    .grounding-card { background: var(--blue-light); border: 1.5px solid rgba(106,155,184,0.2); }
+    .affirmation-card { background: var(--peach-light); border: 1.5px solid rgba(232,131,106,0.2); }
+    .affirmation-text { font-family: 'Playfair Display', serif; font-size: 17px; font-style: italic; color: var(--text); line-height: 1.5; margin: 10px 0; }
+    .grounding-steps { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .grounding-step { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text); }
+    .grounding-number { width: 28px; height: 28px; border-radius: 50%; background: var(--blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+    .coping-title { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .coping-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+    .stories { background: var(--cream); }
+    .stories-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .story-card { background: white; border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); transition: all 0.3s; }
+    .story-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .story-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .story-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .story-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .story-tag { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+    .story-quote { font-size: 13px; color: var(--text-secondary); line-height: 1.7; font-style: italic; border-left: 3px solid var(--green); padding-left: 12px; }
+
+    .community { background: white; }
+    .community-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    .community-card { background: var(--cream); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); display: flex; gap: 14px; align-items: flex-start; text-decoration: none; transition: all 0.2s; }
+    .community-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .community-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .community-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .community-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 6px; }
+    .community-type { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+
+    .get-help { background: var(--green); text-align: center; padding: 100px 5%; }
+    .get-help h2 { font-size: clamp(28px, 5vw, 48px); color: white; margin-bottom: 14px; }
+    .get-help p { font-size: 17px; color: rgba(255,255,255,0.85); margin-bottom: 44px; max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .get-help-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-white { background: white; color: var(--green); padding: 16px 32px; border-radius: 40px; font-size: 16px; font-weight: 700; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .btn-outline-white { background: rgba(255,255,255,0.15); color: white; padding: 16px 32px; border-radius: 40px; font-size: 16px; font-weight: 600; text-decoration: none; border: 2px solid rgba(255,255,255,0.4); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+    .get-help-resources { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; max-width: 900px; margin: 0 auto; }
+    .get-help-resource { background: rgba(255,255,255,0.1); border-radius: var(--radius); padding: 18px; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: all 0.2s; }
+    .get-help-resource:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+    .get-help-resource-icon { font-size: 22px; margin-bottom: 6px; }
+    .get-help-resource-name { font-size: 13px; font-weight: 600; color: white; margin-bottom: 3px; }
+    .get-help-resource-desc { font-size: 11px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+    .responsible-ai { background: var(--cream); }
+    .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .ai-point { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 24px; }
+    .ai-point-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .ai-point-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .ai-point-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .ai-highlight { background: var(--green); border-radius: 24px; padding: 36px; color: white; }
+    .ai-highlight h3 { font-size: 22px; margin-bottom: 14px; color: white; }
+    .ai-highlight p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 16px; }
+    .ai-highlight-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); padding: 10px 16px; border-radius: 40px; font-size: 12px; font-weight: 600; color: white; border: 1px solid rgba(255,255,255,0.3); }
+
+    footer { background: var(--text); padding: 60px 5% 40px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 44px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .footer-logo-icon { width: 34px; height: 34px; background: var(--green); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: white; }
+    .footer-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 18px; }
+    .footer-crisis { background: rgba(232,131,106,0.12); border: 1px solid rgba(232,131,106,0.25); border-radius: 10px; padding: 12px; font-size: 12px; color: rgba(255,255,255,0.6); }
+    .footer-crisis a { color: var(--peach); font-weight: 600; text-decoration: none; }
+    .footer-col-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); margin-bottom: 16px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { text-decoration: none; font-size: 13px; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom-text { font-size: 12px; color: rgba(255,255,255,0.28); }
+    .footer-bottom-badge { font-size: 11px; color: rgba(255,255,255,0.35); }
+
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2,1fr); }
+      .ed-types-grid { grid-template-columns: repeat(2,1fr); }
+      .stories-grid { grid-template-columns: repeat(2,1fr); }
+      .get-help-resources { grid-template-columns: repeat(2,1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); gap: 28px; }
+    }
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 100px 5% 60px; }
+      .hero-visual { display: none; }
+      .paths-grid, .mealtime-grid, .coping-grid, .therapies-grid, .community-grid, .ai-grid { grid-template-columns: 1fr; }
+      .ed-types-grid, .stories-grid, .features-grid { grid-template-columns: 1fr; }
+      .get-help-resources { grid-template-columns: repeat(2,1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🌿</div>
+    <span class="nav-logo-text">Nourish & Hope</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#understanding">Understanding EDs</a></li>
+    <li><a href="#coping">Coping Tools</a></li>
+    <li><a href="#stories">Stories</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#chat">Hope AI</a></li>
+    <li><a href="#get-help" class="nav-cta">Get Help</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🌿 Free for all families — always</div>
+    <h1>Support for families <em>navigating</em> eating disorders</h1>
+    <p class="hero-desc">Nourish & Hope provides compassionate, evidence-based support for both children with eating disorders and their parents — with completely separate experiences designed for each.</p>
+    <div class="hero-actions">
+      <a href="#how-it-works" class="btn-primary">Explore the app ↓</a>
+      <a href="#get-help" class="btn-secondary">Get help now</a>
+    </div>
+    <div class="hero-crisis">
+      <div class="hero-crisis-dot"></div>
+      <div class="hero-crisis-text">Crisis support always available: <a href="tel:18666621235">1-866-662-1235</a> · Text HOME to <a href="sms:741741">741741</a></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-floating-card hero-floating-card-1">
+      <div class="floating-card-icon">🧘</div>
+      <div class="floating-card-title">Breathing exercises</div>
+      <div class="floating-card-desc">Guided box breathing for kids & teens</div>
+    </div>
+    <div class="phone-mockup">
+      <div class="phone-screen">
+        <div class="phone-logo">🌿</div>
+        <div class="phone-title">Nourish & Hope</div>
+        <div class="phone-subtitle">A safe space for families navigating eating disorders</div>
+        <div class="phone-question">Who are you?</div>
+        <button class="phone-btn phone-btn-parent">👨‍👩‍👧 I am a Parent or Caregiver</button>
+        <button class="phone-btn phone-btn-kid">💙 I am a Kid or Teen</button>
+        <div class="phone-crisis-line">Crisis support: 1-866-662-1235</div>
+      </div>
+    </div>
+    <div class="hero-floating-card hero-floating-card-2">
+      <div class="floating-card-icon">💬</div>
+      <div class="floating-card-title">Hope AI Support</div>
+      <div class="floating-card-desc">24/7 guidance for parents</div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stats-grid">
+    <div class="fade-in"><div class="stat-number">9%</div><div class="stat-label">of people worldwide are affected by eating disorders</div></div>
+    <div class="fade-in fade-in-delay-1"><div class="stat-number">28.8M</div><div class="stat-label">Americans will have an eating disorder in their lifetime</div></div>
+    <div class="fade-in fade-in-delay-2"><div class="stat-number">1 in 10</div><div class="stat-label">people with eating disorders receive treatment</div></div>
+    <div class="fade-in"><div class="stat-number">Free</div><div class="stat-label">always free for families — no paywall, no ads</div></div>
+  </div>
+</div>
+
+<section id="how-it-works" class="how-it-works">
+  <div class="section-header">
+    <span class="section-label">How it works</span>
+    <h2 class="section-title">Two separate experiences, one family supported</h2>
+    <p class="section-desc">When you open the app, you choose your role. Parents and kids get completely different, age-appropriate experiences designed for each.</p>
+  </div>
+  <div class="paths-grid">
+    <div class="path-card path-card-parent fade-in">
+      <div class="path-icon path-icon-parent">👨‍👩‍👧</div>
+      <div class="path-title">For Parents & Caregivers</div>
+      <p class="path-desc">Evidence-based guidance, AI support, and community connection for parents navigating one of the hardest journeys of their lives.</p>
+      <ul class="path-features">
+        <li>Mealtime support with real conversation scripts</li>
+        <li>Hope AI chatbot — available 24/7 for guidance</li>
+        <li>Understanding eating disorders & therapies</li>
+        <li>Family meal journal — track what works</li>
+        <li>Parent community & support groups</li>
+        <li>Local clinic and therapist finder</li>
+      </ul>
+    </div>
+    <div class="path-card path-card-kid fade-in fade-in-delay-1">
+      <div class="path-icon path-icon-kid">🌸</div>
+      <div class="path-title">For Kids & Teens</div>
+      <p class="path-desc">A warm, age-appropriate space where young people can check in, find calm, read recovery stories, and write privately — without judgment.</p>
+      <ul class="path-features">
+        <li>Feelings check-in with coping suggestions</li>
+        <li>Guided breathing & grounding exercises</li>
+        <li>Full coping toolkit — affirmations & activities</li>
+        <li>Private journal — saved securely to your account</li>
+        <li>Recovery stories from real young people</li>
+        <li>One-tap access to crisis support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="section-header centered">
+    <span class="section-label">Key Features</span>
+    <h2 class="section-title">Everything a family needs</h2>
+    <p class="section-desc">Built from lived experience — every feature exists because a real family needed it.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-in">
+      <div class="feature-icon" style="background:#EBF2EC;">💬</div>
+      <div class="feature-title">Hope AI Chatbot</div>
+      <p class="feature-desc">An AI assistant trained to support parents of children with eating disorders. Available at 2am when no one else is. Parents only — never for kids.</p>
+    </div>
+    <div class="feature-card fade-in fade-in-delay-1">
+      <div class="feature-icon" style="background:#EAF3F9;">🍽️</div>
+      <div class="feature-title">Mealtime Support</div>
+      <p class="feature-desc">15 conversation scripts for the hardest mealtime moments. Evidence-based tips based on Family-Based Treatment — the gold standard for adolescent EDs.</p>
+    </div>
+    <div class="feature-card fade-in fade-in-delay-2">
+      <div class="feature-icon" style="background:#EEEDFE;">📓</div>
+      <div class="feature-title">Private Journal</div>
+      <p class="feature-desc">A completely private journal for kids with 12 therapeutic prompts. Entries are saved securely to their account — never shared or seen by anyone else.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feature-icon" style="background:#FDF0EC;">🫁</div>
+      <div class="feature-title">Breathing Animation</div>
+      <p class="feature-desc">A guided box breathing exercise with an animated circle — 4 counts in, 4 hold, 4 out. Proven to reduce anxiety in minutes.</p>
+    </div>
+    <div class="feature-card fade-in fade-in-delay-1">
+      <div class="feature-icon" style="background:#EBF2EC;">🌿</div>
+      <div class="feature-title">Grounding Exercise</div>
+      <p class="feature-desc">The 5-4-3-2-1 grounding technique — interactive tap-through cards that bring kids back to the present moment when anxiety feels overwhelming.</p>
+    </div>
+    <div class="feature-card fade-in fade-in-delay-2">
+      <div class="feature-icon" style="background:#FAEEDA;">👥</div>
+      <div class="feature-title">Parent Community</div>
+      <p class="feature-desc">Links to vetted, moderated parent support communities — Around the Dinner Table, Alliance for EDs, Facebook groups, and FEAST.</p>
+    </div>
+  </div>
+</section>
+
+<section class="mealtime" id="mealtime">
+  <div class="mealtime-grid">
+    <div>
+      <span class="section-label">For Parents</span>
+      <h2 class="section-title">Mealtime support that actually helps</h2>
+      <p class="section-desc">Built from real lived experience — these tips and scripts come from families who have been through exactly what you're facing.</p>
+      <div class="tips-list">
+        <div class="tip-item fade-in">
+          <div class="tip-icon">🕐</div>
+          <div>
+            <div class="tip-title">Keep mealtimes predictable</div>
+            <p class="tip-desc">Serve meals at consistent times each day. Predictability reduces anxiety for children with eating disorders.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in fade-in-delay-1">
+          <div class="tip-icon">😊</div>
+          <div>
+            <div class="tip-title">Stay calm no matter what</div>
+            <p class="tip-desc">This is the eating disorder speaking, not your child. Stay warm, stay calm, and do not engage in arguments about food.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in fade-in-delay-2">
+          <div class="tip-icon">⏰</div>
+          <div>
+            <div class="tip-title">Stay together after eating</div>
+            <p class="tip-desc">Gently keep your child with the family for at least 30 minutes after a meal. This helps prevent compensatory behaviours.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in">
+          <div class="tip-icon">💬</div>
+          <div>
+            <div class="tip-title">Use neutral conversation</div>
+            <p class="tip-desc">Talk about anything except food, eating, weight, or bodies. Normal conversation helps normalise the mealtime.</p>
+          </div>
+        </div>
+        <div class="tip-item fade-in fade-in-delay-1">
+          <div class="tip-icon">🤝</div>
+          <div>
+            <div class="tip-title">You are on the same team</div>
+            <p class="tip-desc">You are not the enemy. The eating disorder is the problem. You are fighting it together, not against each other.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scripts-panel">
+      <div class="script-card fade-in">
+        <div class="script-situation" style="background:#E8836A;">When they refuse to come to the table</div>
+        <div class="script-body">
+          <div class="script-try"><div class="script-label">✓ Try this</div><p class="script-text">"Dinner is ready. I'd love for you to join us. I know mealtimes feel hard right now and I'm here with you."</p></div>
+          <div class="script-avoid"><div class="script-label">✗ Avoid</div><p class="script-text">"You HAVE to eat. Get to the table right now." — This escalates conflict.</p></div>
+        </div>
+      </div>
+      <div class="script-card fade-in fade-in-delay-1">
+        <div class="script-situation" style="background:#6A9BB8;">When they say "I'm not hungry"</div>
+        <div class="script-body">
+          <div class="script-try"><div class="script-label">✓ Try this</div><p class="script-text">"I hear you. Your body might not be sending hunger signals right now — that's part of what we're working on. Let's sit together anyway."</p></div>
+          <div class="script-avoid"><div class="script-label">✗ Avoid</div><p class="script-text">"How can you not be hungry? You haven't eaten all day!" — This creates shame and argument.</p></div>
+        </div>
+      </div>
+      <div class="script-card fade-in fade-in-delay-2">
+        <div class="script-situation" style="background:#5C7A5F;">When they say "I hate you for making me do this"</div>
+        <div class="script-body">
+          <div class="script-try"><div class="script-label">✓ Try this</div><p class="script-text">"I know you're really angry right now. I love you even when you're angry at me. That's not going to change."</p></div>
+          <div class="script-avoid"><div class="script-label">✗ Avoid</div><p class="script-text">"How dare you say that." — Reacting to the words rather than the pain underneath them.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="understanding" class="understanding">
+  <div class="section-header">
+    <span class="section-label">Education</span>
+    <h2 class="section-title">Understanding eating disorders</h2>
+    <p class="section-desc">Knowledge is the first step toward healing. Learn about different types of eating disorders, common myths, and evidence-based therapies.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(event,'types')">ED Types</button>
+    <button class="tab" onclick="switchTab(event,'myths')">Myths vs Facts</button>
+    <button class="tab" onclick="switchTab(event,'therapies')">Therapies</button>
+  </div>
+  <div id="tab-types" class="tab-content active">
+    <div class="ed-types-grid">
+      <div class="ed-card fade-in" style="border-left-color:#E8836A;"><div class="ed-card-title">Anorexia Nervosa</div><p class="ed-card-desc">Characterized by restriction of food intake, leading to significantly low body weight and intense fear of gaining weight.</p><ul class="ed-symptoms"><li>Extreme restriction of food intake</li><li>Intense fear of weight gain</li><li>Distorted body image</li><li>Serious medical complications</li></ul></div>
+      <div class="ed-card fade-in fade-in-delay-1" style="border-left-color:#6A9BB8;"><div class="ed-card-title">Bulimia Nervosa</div><p class="ed-card-desc">Involves cycles of binge eating followed by compensatory behaviors. Often occurs at normal or above-normal weight.</p><ul class="ed-symptoms"><li>Binge eating episodes</li><li>Compensatory behaviors</li><li>Normal or above-normal weight</li><li>Shame around eating habits</li></ul></div>
+      <div class="ed-card fade-in fade-in-delay-2" style="border-left-color:#9B6AB0;"><div class="ed-card-title">Binge Eating Disorder</div><p class="ed-card-desc">Recurrent episodes of eating large amounts with a feeling of loss of control — without compensatory behaviors.</p><ul class="ed-symptoms"><li>Eating large amounts rapidly</li><li>Feeling out of control</li><li>Eating when not physically hungry</li><li>Intense shame afterwards</li></ul></div>
+      <div class="ed-card fade-in" style="border-left-color:#5C7A5F;"><div class="ed-card-title">ARFID</div><p class="ed-card-desc">Avoidant/Restrictive Food Intake Disorder — limited food intake not related to body image concerns.</p><ul class="ed-symptoms"><li>Limited food variety</li><li>Sensory sensitivities around food</li><li>Lack of interest in eating</li><li>Nutritional deficiencies</li></ul></div>
+      <div class="ed-card fade-in fade-in-delay-1" style="border-left-color:#BA7517;"><div class="ed-card-title">Orthorexia</div><p class="ed-card-desc">An obsession with eating "purely" that becomes extreme and interferes with daily life — often disguised as health consciousness.</p><ul class="ed-symptoms"><li>Rigid food rules</li><li>Anxiety around "impure" foods</li><li>Social isolation around eating</li><li>Disguised as health consciousness</li></ul></div>
+      <div class="ed-card fade-in fade-in-delay-2" style="border-left-color:#888780;"><div class="ed-card-title">OSFED</div><p class="ed-card-desc">Other Specified Feeding or Eating Disorder — the most common diagnosis. Just as serious as other EDs and deserves the same level of care.</p><ul class="ed-symptoms"><li>Does not fit neatly into other categories</li><li>Causes significant distress</li><li>Affects daily functioning</li><li>Deserves the same level of care</li></ul></div>
+    </div>
+  </div>
+  <div id="tab-myths" class="tab-content">
+    <div class="myths-grid">
+      <div class="myth-card fade-in"><div class="myth-section myth-part"><div class="myth-label">✗ Myth</div><p class="myth-text">Eating disorders only affect thin teenage girls</p></div><div class="myth-section fact-part"><div class="myth-label">✓ Fact</div><p class="myth-text">Eating disorders affect people of ALL genders, ages, races, and body sizes. Someone can be in a larger body and still have a serious eating disorder.</p></div></div>
+      <div class="myth-card fade-in fade-in-delay-1"><div class="myth-section myth-part"><div class="myth-label">✗ Myth</div><p class="myth-text">Parents cause eating disorders</p></div><div class="myth-section fact-part"><div class="myth-label">✓ Fact</div><p class="myth-text">Eating disorders have complex genetic, biological, and environmental causes. Family involvement is actually key to recovery.</p></div></div>
+      <div class="myth-card fade-in"><div class="myth-section myth-part"><div class="myth-label">✗ Myth</div><p class="myth-text">They could just eat normally if they wanted to</p></div><div class="myth-section fact-part"><div class="myth-label">✓ Fact</div><p class="myth-text">Eating disorders involve real changes in brain chemistry. Willpower cannot fix them, just as willpower cannot fix a broken bone or diabetes.</p></div></div>
+      <div class="myth-card fade-in fade-in-delay-1"><div class="myth-section myth-part"><div class="myth-label">✗ Myth</div><p class="myth-text">Eating disorders are not that serious</p></div><div class="myth-section fact-part"><div class="myth-label">✓ Fact</div><p class="myth-text">Eating disorders have the highest mortality rate of any mental health condition. Early intervention is critical and can be life-saving.</p></div></div>
+      <div class="myth-card fade-in"><div class="myth-section myth-part"><div class="myth-label">✗ Myth</div><p class="myth-text">Only people who are underweight need treatment</p></div><div class="myth-section fact-part"><div class="myth-label">✓ Fact</div><p class="myth-text">Medical complications from eating disorders can occur at any body size. Size alone is never a reliable indicator of the severity of an eating disorder.</p></div></div>
+      <div class="myth-card fade-in fade-in-delay-1"><div class="myth-section myth-part"><div class="myth-label">✗ Myth</div><p class="myth-text">It's just a phase — they'll grow out of it</p></div><div class="myth-section fact-part"><div class="myth-label">✓ Fact</div><p class="myth-text">Eating disorders are serious mental health conditions that rarely resolve on their own. Early professional treatment leads to dramatically better outcomes.</p></div></div>
+    </div>
+  </div>
+  <div id="tab-therapies" class="tab-content">
+    <div class="therapies-grid">
+      <div class="therapy-card fade-in"><div class="therapy-header" style="background:#EBF2EC;"><div class="therapy-abbr" style="background:#5C7A5F;">FBT</div><div><div class="therapy-name">Family-Based Treatment</div><div class="therapy-best">Best for: Adolescents with anorexia or bulimia</div></div></div><div class="therapy-body"><p class="therapy-desc">The gold standard treatment for adolescent eating disorders. Parents take an active role in supporting their child and restoring healthy eating patterns.</p><ul class="therapy-points"><li style="--c:#5C7A5F">Parents are the most important resource — not the cause</li><li>Typically 15-20 sessions over 6-12 months</li><li>Strongest evidence base for adolescents</li><li>Whole family participates in therapy sessions</li></ul></div></div>
+      <div class="therapy-card fade-in fade-in-delay-1"><div class="therapy-header" style="background:#EAF3F9;"><div class="therapy-abbr" style="background:#6A9BB8;">CBT</div><div><div class="therapy-name">Cognitive Behavioral Therapy</div><div class="therapy-best">Best for: Bulimia, binge eating disorder</div></div></div><div class="therapy-body"><p class="therapy-desc">CBT helps identify and change the distorted thoughts and beliefs that drive eating disorder behaviours.</p><ul class="therapy-points"><li>Focuses on thoughts, feelings, and behaviours</li><li>Usually 20 sessions over 5 months</li><li>Strong evidence base for bulimia and BED</li><li>Teaches practical skills that last beyond therapy</li></ul></div></div>
+      <div class="therapy-card fade-in"><div class="therapy-header" style="background:#EEEDFE;"><div class="therapy-abbr" style="background:#9B6AB0;">DBT</div><div><div class="therapy-name">Dialectical Behavior Therapy</div><div class="therapy-best">Best for: Binge eating, emotional dysregulation</div></div></div><div class="therapy-body"><p class="therapy-desc">DBT combines cognitive-behavioral techniques with mindfulness and acceptance strategies.</p><ul class="therapy-points"><li>Four skill areas: mindfulness, distress tolerance, emotion regulation, interpersonal effectiveness</li><li>Especially helpful for emotionally intense presentations</li><li>Includes individual therapy and skills groups</li></ul></div></div>
+      <div class="therapy-card fade-in fade-in-delay-1"><div class="therapy-header" style="background:#FAEEDA;"><div class="therapy-abbr" style="background:#BA7517;">ACT</div><div><div class="therapy-name">Acceptance & Commitment Therapy</div><div class="therapy-best">Best for: Any ED type, especially with anxiety</div></div></div><div class="therapy-body"><p class="therapy-desc">ACT focuses on accepting difficult thoughts and feelings rather than fighting them, while committing to actions that align with personal values.</p><ul class="therapy-points"><li>Does not try to eliminate negative thoughts</li><li>Values-based approach — what matters most to you?</li><li>Builds psychological flexibility</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="coping" class="coping">
+  <div class="section-header">
+    <span class="section-label">For Kids & Teens</span>
+    <h2 class="section-title">Coping toolkit</h2>
+    <p class="section-desc">Evidence-based tools kids can use independently to manage anxiety, difficult feelings, and distress in the moment.</p>
+  </div>
+  <div class="coping-grid">
+    <div class="coping-card breathing-card fade-in">
+      <div class="coping-title">Box Breathing</div>
+      <p class="coping-desc">Breathe with the circle. This animated guide helps regulate your nervous system in minutes.</p>
+      <div class="breathing-circle"><div class="breathing-number" id="breatheNum">4</div></div>
+      <div class="breathing-phase" id="breathePhase">Breathe in...</div>
+      <p style="font-size:12px;color:var(--text-light);margin-top:14px;">4 counts in · 4 hold · 4 out</p>
+    </div>
+    <div class="coping-card grounding-card fade-in fade-in-delay-1">
+      <div class="coping-title">5-4-3-2-1 Grounding</div>
+      <p class="coping-desc">When anxiety feels overwhelming, use your senses to come back to the present moment.</p>
+      <div class="grounding-steps">
+        <div class="grounding-step"><div class="grounding-number">5</div><span>Things you can <strong>see</strong></span></div>
+        <div class="grounding-step"><div class="grounding-number">4</div><span>Things you can <strong>touch</strong></span></div>
+        <div class="grounding-step"><div class="grounding-number">3</div><span>Things you can <strong>hear</strong></span></div>
+        <div class="grounding-step"><div class="grounding-number">2</div><span>Things you can <strong>smell</strong></span></div>
+        <div class="grounding-step"><div class="grounding-number">1</div><span>Thing you can <strong>taste</strong></span></div>
+      </div>
+    </div>
+    <div class="coping-card affirmation-card fade-in">
+      <div class="coping-title">Daily Affirmations</div>
+      <p class="coping-desc">Positive affirmations written specifically for recovery. Tap for a new one.</p>
+      <div class="affirmation-text" id="affirmationText">"You are more than your body."</div>
+      <button onclick="nextAffirmation()" style="background:var(--peach);color:white;border:none;padding:10px 20px;border-radius:40px;font-size:13px;font-weight:600;cursor:pointer;margin-top:10px;">Next affirmation →</button>
+    </div>
+    <div class="coping-card fade-in fade-in-delay-1" style="background:#EBF2EC;border:1.5px solid rgba(92,122,95,0.2);">
+      <div class="coping-title">Distraction Activities</div>
+      <p class="coping-desc">When feelings are intense, doing something — anything — helps break the cycle.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);">🎵 <span>Listen to music that matches how you <em>want</em> to feel</span></div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);">🎨 <span>Draw or colour — no skill needed</span></div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);">🚶 <span>Take a short walk outside</span></div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);">📱 <span>Text a friend — even just a meme</span></div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text);">📖 <span>Read something that takes you elsewhere</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stories" class="stories">
+  <div class="section-header centered">
+    <span class="section-label">Recovery Stories</span>
+    <h2 class="section-title">Real stories from real people</h2>
+    <p class="section-desc">Recovery is possible. These people were once where you are now.</p>
+  </div>
+  <div class="stories-grid">
+    <div class="story-card fade-in"><div class="story-header"><div class="story-avatar" style="background:#FDF0EC;">🌸</div><div><div class="story-name">Maya, age 19</div><span class="story-tag" style="background:#FDF0EC;color:#993C1D;">Anorexia recovery</span></div></div><p class="story-quote">"Recovery taught me that my worth isn't determined by a number on a scale. I can enjoy meals with friends now and focus on my dreams."</p></div>
+    <div class="story-card fade-in fade-in-delay-1"><div class="story-header"><div class="story-avatar" style="background:#EAF3F9;">⚽</div><div><div class="story-name">Alex, age 17</div><span class="story-tag" style="background:#EAF3F9;color:#185FA5;">Binge eating recovery</span></div></div><p class="story-quote">"I'm a guy and I felt like eating disorders weren't supposed to happen to me. Asking for help was the bravest thing I ever did."</p></div>
+    <div class="story-card fade-in fade-in-delay-2"><div class="story-header"><div class="story-avatar" style="background:#EEEDFE;">🎨</div><div><div class="story-name">Sophie, age 16</div><span class="story-tag" style="background:#EEEDFE;color:#3C3489;">Bulimia recovery</span></div></div><p class="story-quote">"Art saved me when words couldn't express what I was going through. Recovery is ongoing but I have tools now, and people who understand."</p></div>
+    <div class="story-card fade-in"><div class="story-header"><div class="story-avatar" style="background:#EBF2EC;">🎵</div><div><div class="story-name">Jordan, age 20</div><span class="story-tag" style="background:#EBF2EC;color:#3B5E3D;">ARFID recovery</span></div></div><p class="story-quote">"I used to be terrified of food. Last month I went to a restaurant with friends and tried something new. Recovery is possible, even when it feels impossible."</p></div>
+    <div class="story-card fade-in fade-in-delay-1"><div class="story-header"><div class="story-avatar" style="background:#FAEEDA;">🌟</div><div><div class="story-name">Priya, age 18</div><span class="story-tag" style="background:#FAEEDA;color:#633806;">Orthorexia recovery</span></div></div><p class="story-quote">"I thought I was being healthy. Recovery meant learning that no food is morally good or bad. Food is just food — and that took me a long time to believe."</p></div>
+    <div class="story-card fade-in fade-in-delay-2"><div class="story-header"><div class="story-avatar" style="background:#FDF0EC;">🏃</div><div><div class="story-name">Sam, age 15</div><span class="story-tag" style="background:#FDF0EC;color:#993C1D;">Exercise addiction recovery</span></div></div><p class="story-quote">"I still love running — but now I run because it makes me happy, not because I'm afraid of what happens if I stop."</p></div>
+  </div>
+</section>
+
+<section id="community" class="community">
+  <div class="section-header">
+    <span class="section-label">Parent Community</span>
+    <h2 class="section-title">You are not alone</h2>
+    <p class="section-desc">Thousands of parents are going through exactly what you're facing right now. Connecting with them can change everything.</p>
+  </div>
+  <div class="community-grid">
+    <a href="https://www.allianceforeatingdisorders.com" target="_blank" class="community-card fade-in"><div class="community-icon" style="background:#EBF2EC;">🌿</div><div><div class="community-name">Alliance for Eating Disorders Awareness</div><p class="community-desc">Official parent support groups run by eating disorder specialists. Moderated and safe.</p><span class="community-type" style="background:#EBF2EC;color:#3B5E3D;">Online & In-person</span></div></a>
+    <a href="https://www.feast-ed.org/around-the-dinner-table-forum/" target="_blank" class="community-card fade-in fade-in-delay-1"><div class="community-icon" style="background:#EAF3F9;">👥</div><div><div class="community-name">Around the Dinner Table Forum</div><p class="community-desc">The largest online forum specifically for parents supporting loved ones with eating disorders. Based on FBT principles.</p><span class="community-type" style="background:#EAF3F9;color:#185FA5;">Online forum</span></div></a>
+    <a href="https://www.facebook.com/groups/EDparentssupport" target="_blank" class="community-card fade-in"><div class="community-icon" style="background:#E6F1FB;">📘</div><div><div class="community-name">Facebook: ED Parent Support</div><p class="community-desc">Private Facebook group for parents of children with eating disorders. Thousands of members sharing daily support.</p><span class="community-type" style="background:#E6F1FB;color:#185FA5;">Facebook group</span></div></a>
+    <a href="https://www.feast-ed.org" target="_blank" class="community-card fade-in fade-in-delay-1"><div class="community-icon" style="background:#EEEDFE;">🤝</div><div><div class="community-name">FEAST Family Support</div><p class="community-desc">Families Empowered and Supporting Treatment of Eating Disorders — a global network of family support.</p><span class="community-type" style="background:#EEEDFE;color:#3C3489;">In-person & online</span></div></a>
+  </div>
+</section>
+
+<section class="responsible-ai">
+  <div class="ai-grid">
+    <div>
+      <span class="section-label">Responsible AI</span>
+      <h2 class="section-title">Technology built with care</h2>
+      <p class="section-desc" style="margin-bottom:36px;">We made deliberate choices about how AI is used in this app — guided by what's safest for vulnerable users, not what's most impressive.</p>
+      <div class="ai-point fade-in"><div class="ai-point-icon" style="background:#EBF2EC;">🚫</div><div><div class="ai-point-title">No AI chat for minors</div><p class="ai-point-desc">We deliberately excluded AI chat from the kids section. Unsupervised AI interactions with vulnerable young people can be unpredictable. Instead we connect kids to trained human counselors.</p></div></div>
+      <div class="ai-point fade-in fade-in-delay-1"><div class="ai-point-icon" style="background:#EAF3F9;">⚕️</div><div><div class="ai-point-title">Never a replacement for professionals</div><p class="ai-point-desc">Every AI response includes a clear reminder that Hope is not a medical professional and cannot provide diagnoses. Serious concerns are always redirected to qualified help.</p></div></div>
+      <div class="ai-point fade-in fade-in-delay-2"><div class="ai-point-icon" style="background:#FDF0EC;">🆘</div><div><div class="ai-point-title">Crisis resources always visible</div><p class="ai-point-desc">The crisis helpline is accessible on every single screen — not buried in a menu. In a crisis moment, help is always one tap away.</p></div></div>
+    </div>
+    <div class="ai-highlight fade-in">
+      <h3>Why we chose not to give kids an AI chatbot</h3>
+      <p>After researching the risks of unsupervised AI interactions with minors in vulnerable situations, we made the deliberate decision to exclude AI chat from the kids section entirely.</p>
+      <p>This was a hard decision because AI chat is impressive — but the right decision is not always the most impressive one. Technology for vulnerable populations requires empathy, research, and the willingness to remove features that could cause harm.</p>
+      <div class="ai-highlight-badge">🏆 Responsible AI design · Technovation Girls 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES SECTION -->
+<section id="resources" style="background:var(--cream);padding:100px 5%;">
+  <div class="section-header">
+    <span class="section-label">Resources</span>
+    <h2 class="section-title">Helpful resources for families</h2>
+    <p class="section-desc">Curated videos, playlists, audiobooks, and tools for parents and kids — all free and evidence-informed.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+
+    <!-- For Parents -->
+    <div>
+      <h3 style="font-size:20px;color:var(--green);margin-bottom:20px;font-family:'Playfair Display',serif;">👨‍👩‍👧 For Parents</h3>
+
+      <div style="margin-bottom:24px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin-bottom:12px;">Educational Videos</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="https://www.youtube.com/results?search_query=family+based+treatment+FBT+eating+disorder" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:#FCEBEB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">▶️</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Family-Based Treatment (FBT) overview</div><div style="font-size:12px;color:var(--text-secondary);">Gold standard treatment for adolescent eating disorders</div></div>
+          </a>
+          <a href="https://www.youtube.com/results?search_query=supporting+child+eating+disorder+mealtime" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:#FCEBEB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">▶️</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Mealtime support for parents</div><div style="font-size:12px;color:var(--text-secondary);">Practical guidance from eating disorder specialists</div></div>
+          </a>
+          <a href="https://www.youtube.com/results?search_query=CBT+DBT+eating+disorder+therapy+explained" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:#FCEBEB;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">▶️</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">ED therapy approaches explained</div><div style="font-size:12px;color:var(--text-secondary);">CBT, DBT, ACT and FBT for families</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin-bottom:12px;">Parent Support</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="https://www.feast-ed.org" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🤝</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">FEAST — Families Fighting EDs</div><div style="font-size:12px;color:var(--text-secondary);">Global network of family support and resources</div></div>
+          </a>
+          <a href="https://www.feast-ed.org/around-the-dinner-table-forum/" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">💬</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Around the Dinner Table Forum</div><div style="font-size:12px;color:var(--text-secondary);">Largest parent forum for ED families</div></div>
+          </a>
+          <a href="https://www.psychologytoday.com/us/therapists/eating-disorders" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--green-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🔍</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Find an ED Therapist</div><div style="font-size:12px;color:var(--text-secondary);">Search by location, insurance, and specialty</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- For Kids -->
+    <div>
+      <h3 style="font-size:20px;color:var(--peach);margin-bottom:20px;font-family:'Playfair Display',serif;">🌸 For Kids & Teens</h3>
+
+      <div style="margin-bottom:24px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin-bottom:12px;">Music & Playlists</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="https://open.spotify.com/playlist/37i9dQZF1DX3Ogo9pFvBkY" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--peach)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--peach-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🎵</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Calming playlist on Spotify</div><div style="font-size:12px;color:var(--text-secondary);">Music designed to reduce anxiety and lift mood</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=eKFTSSKCzWA" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--peach)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--peach-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🌿</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Nature sounds — rain & forest</div><div style="font-size:12px;color:var(--text-secondary);">Proven to reduce cortisol and anxiety</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div style="margin-bottom:24px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin-bottom:12px;">Audiobooks & Reading</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="https://libbyapp.com" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--peach)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--peach-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📚</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Libby — free audiobooks</div><div style="font-size:12px;color:var(--text-secondary);">Free with any library card — thousands of teen titles</div></div>
+          </a>
+          <a href="https://blog.reedsy.com/creative-writing-prompts/for-teens/" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--peach)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--peach-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">✍️</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Creative writing prompts for teens</div><div style="font-size:12px;color:var(--text-secondary);">Free writing prompts to spark creativity and expression</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-light);margin-bottom:12px;">Mindfulness & Games</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="https://www.headspace.com" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--peach)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--peach-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🧘</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Headspace — guided meditation</div><div style="font-size:12px;color:var(--text-secondary);">Free guided meditations for stress and anxiety</div></div>
+          </a>
+          <a href="https://recolor.me" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--peach)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--peach-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🎨</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Recolor — calming colouring app</div><div style="font-size:12px;color:var(--text-secondary);">Free, relaxing, no artistic skill needed</div></div>
+          </a>
+          <a href="https://www.youtube.com/results?search_query=eating+disorder+recovery+story+teen" target="_blank" style="display:flex;align-items:center;gap:12px;background:white;border-radius:12px;padding:14px;border:1px solid var(--border);text-decoration:none;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--peach)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="width:36px;height:36px;background:var(--peach-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">⭐</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Recovery stories on YouTube</div><div style="font-size:12px;color:var(--text-secondary);">Real young people sharing their recovery journeys</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI CHATBOT SECTION -->
+<section id="chat" style="background:white;padding:100px 5%;">
+  <div class="section-header centered">
+    <span class="section-label">For Parents</span>
+    <h2 class="section-title">Chat with Hope AI Support</h2>
+    <p class="section-desc">Hope is a compassionate AI assistant trained to support parents of children with eating disorders. Available 24/7 — ask anything that's on your mind.</p>
+  </div>
+
+  <div style="max-width:700px;margin:0 auto;">
+    <div style="background:var(--cream);border-radius:24px;border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow);">
+
+      <!-- Chat header -->
+      <div style="background:var(--green);padding:20px 24px;display:flex;align-items:center;gap:14px;">
+        <div style="width:44px;height:44px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">🌿</div>
+        <div>
+          <div style="font-size:16px;font-weight:600;color:white;">Hope</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.75);">AI Support for Parents · Not a medical professional</div>
+        </div>
+        <div style="margin-left:auto;display:flex;align-items:center;gap:6px;">
+          <div style="width:8px;height:8px;background:#4ade80;border-radius:50%;"></div>
+          <span style="font-size:12px;color:rgba(255,255,255,0.75);">Online</span>
+        </div>
+      </div>
+
+      <!-- Messages area -->
+      <div id="chat-messages" style="height:380px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:32px;height:32px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🌿</div>
+          <div style="background:white;border-radius:0 16px 16px 16px;padding:14px 16px;max-width:80%;border:1px solid var(--border);">
+            <p style="font-size:14px;color:var(--text);line-height:1.6;">Hi, I'm Hope — a supportive AI assistant for parents and families navigating eating disorders. I'm here to listen and offer guidance. What's on your mind today?</p>
+            <p style="font-size:11px;color:var(--text-light);margin-top:6px;">I'm not a medical professional. For urgent concerns please call 1-866-662-1235.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input area -->
+      <div style="padding:16px 20px;border-top:1px solid var(--border);background:white;display:flex;gap:10px;align-items:flex-end;">
+        <textarea id="chat-input" placeholder="Ask Hope anything — mealtimes, how to talk to your child, finding help..." style="flex:1;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);resize:none;outline:none;min-height:48px;max-height:120px;line-height:1.5;background:var(--cream);" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
+        <button onclick="sendMessage()" id="send-btn" style="width:44px;height:44px;background:var(--green);border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;" onmouseover="this.style.background='var(--green-dark)'" onmouseout="this.style.background='var(--green)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:12px;color:var(--text-light);margin-top:16px;">
+      Hope provides emotional support and general guidance only. Always consult a qualified healthcare professional for medical advice.
+      Crisis support: <a href="tel:18666621235" style="color:var(--green);font-weight:600;">1-866-662-1235</a>
+    </p>
+  </div>
+</section>
+
+<section id="get-help" class="get-help">
+  <h2>You don't have to face this alone</h2>
+  <p>Whether you're a parent who doesn't know where to start, or a young person who needs someone to talk to — help is available right now.</p>
+  <div class="get-help-buttons">
+    <a href="tel:18666621235" class="btn-white">📞 Call 1-866-662-1235</a>
+    <a href="sms:741741&body=HOME" class="btn-outline-white">💬 Text HOME to 741741</a>
+  </div>
+  <div class="get-help-resources">
+    <a href="https://www.allianceforeatingdisorders.com" target="_blank" class="get-help-resource"><div class="get-help-resource-icon">🌿</div><div class="get-help-resource-name">Alliance for EDs</div><p class="get-help-resource-desc">Comprehensive family resources and support groups</p></a>
+    <a href="https://www.psychologytoday.com/us/therapists/eating-disorders" target="_blank" class="get-help-resource"><div class="get-help-resource-icon">🔍</div><div class="get-help-resource-name">Find a Therapist</div><p class="get-help-resource-desc">ED specialists by location and insurance</p></a>
+    <a href="https://www.eatingdisorderhope.com/treatment-for-eating-disorders" target="_blank" class="get-help-resource"><div class="get-help-resource-icon">🏥</div><div class="get-help-resource-name">Treatment Centers</div><p class="get-help-resource-desc">Find specialized treatment facilities near you</p></a>
+    <a href="https://www.eatright.org/find-a-nutrition-expert" target="_blank" class="get-help-resource"><div class="get-help-resource-icon">🥗</div><div class="get-help-resource-name">Find a Dietitian</div><p class="get-help-resource-desc">ED-specialised registered dietitians</p></a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><div class="footer-logo-icon">🌿</div><span class="footer-logo-text">Nourish & Hope</span></div>
+      <p class="footer-desc">A free mobile app providing compassionate, evidence-based support for families navigating eating disorders. Built for Technovation Girls 2026.</p>
+      <div class="footer-crisis">Crisis support: <a href="tel:18666621235">1-866-662-1235</a> (Mon–Fri 9am–9pm ET)<br>Crisis text line: Text <a href="sms:741741">HOME to 741741</a> (24/7)</div>
+    </div>
+    <div>
+      <div class="footer-col-title">For Parents</div>
+      <ul class="footer-links">
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#mealtime">Mealtime support</a></li>
+        <li><a href="#understanding">Understanding EDs</a></li>
+        <li><a href="#community">Parent community</a></li>
+        <li><a href="#get-help">Find a therapist</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">For Kids & Teens</div>
+      <ul class="footer-links">
+        <li><a href="#coping">Coping toolkit</a></li>
+        <li><a href="#coping">Breathing exercise</a></li>
+        <li><a href="#stories">Recovery stories</a></li>
+        <li><a href="#get-help">Get help now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Resources</div>
+      <ul class="footer-links">
+        <li><a href="https://www.allianceforeatingdisorders.com" target="_blank">Alliance for EDs</a></li>
+        <li><a href="https://www.feast-ed.org" target="_blank">FEAST</a></li>
+        <li><a href="https://www.psychologytoday.com/us/therapists/eating-disorders" target="_blank">Find a therapist</a></li>
+        <li><a href="https://www.eatright.org/find-a-nutrition-expert" target="_blank">Find a dietitian</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-bottom-text">© 2026 Nourish & Hope. Free for all families, always.</p>
+    <div class="footer-bottom-badge">🏆 Technovation Girls 2026 · Built with Claude AI</div>
+  </div>
+</footer>
+
+<script>
+  var breathePhases = [
+    { text: 'Breathe in...', duration: 4 },
+    { text: 'Hold...', duration: 4 },
+    { text: 'Breathe out...', duration: 4 }
+  ];
+  var currentPhase = 0;
+  var currentCount = 4;
+  function updateBreathing() {
+    document.getElementById('breathePhase').textContent = breathePhases[currentPhase].text;
+    document.getElementById('breatheNum').textContent = currentCount;
+    currentCount--;
+    if (currentCount < 0) {
+      currentPhase = (currentPhase + 1) % breathePhases.length;
+      currentCount = breathePhases[currentPhase].duration;
+    }
+  }
+  setInterval(updateBreathing, 1000);
+
+  var affirmations = [
+    '"You are more than your body."',
+    '"Recovery is possible for you."',
+    '"You deserve love exactly as you are."',
+    '"Your feelings are valid and they will pass."',
+    '"You are not defined by what you eat."',
+    '"Asking for help is an act of courage."',
+    '"Your worth has nothing to do with your size."',
+    '"Every small step forward counts."',
+    '"You are allowed to take up space."',
+    '"Today does not have to be perfect."'
+  ];
+  var currentAffirmation = 0;
+  function nextAffirmation() {
+    currentAffirmation = (currentAffirmation + 1) % affirmations.length;
+    var el = document.getElementById('affirmationText');
+    el.style.opacity = '0';
+    setTimeout(function() { el.textContent = affirmations[currentAffirmation]; el.style.opacity = '1'; }, 200);
+  }
+  document.getElementById('affirmationText').style.transition = 'opacity 0.2s';
+
+  function switchTab(e, tabName) {
+    document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+    e.target.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+
+  // AI Chatbot
+  var chatHistory = [];
+  var isSending = false;
+
+  function sendMessage() {
+    if (isSending) return;
+    var input = document.getElementById('chat-input');
+    var text = input.value.trim();
+    if (!text) return;
+
+    isSending = true;
+    input.value = '';
+    input.style.height = 'auto';
+
+    addMessage(text, 'user');
+    chatHistory.push({ role: 'user', content: text });
+
+    var btn = document.getElementById('send-btn');
+    btn.style.background = '#A8C4AA';
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle></svg>';
+
+    addTypingIndicator();
+
+    fetch('https://nourishandhope.netlify.app/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: 'You are Hope, a warm and compassionate AI support assistant for parents of children with eating disorders. Provide emotional support and practical guidance based on evidence-based approaches like Family-Based Treatment (FBT). Keep responses to 3 paragraphs maximum. Never provide medical diagnoses. Always recommend professional help for serious concerns. If there is immediate danger direct them to call 911 or 1-866-662-1235.',
+        messages: chatHistory
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      removeTypingIndicator();
+      var reply = data.content && data.content[0] ? data.content[0].text : 'I\'m sorry, I\'m having trouble connecting right now. Please try again in a moment.';
+      chatHistory.push({ role: 'assistant', content: reply });
+      addMessage(reply, 'assistant');
+    })
+    .catch(function() {
+      removeTypingIndicator();
+      addMessage('I\'m having trouble connecting right now. Please try again in a moment, or call the helpline at 1-866-662-1235.', 'assistant');
+    })
+    .finally(function() {
+      isSending = false;
+      btn.style.background = 'var(--green)';
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>';
+    });
+  }
+
+  function addMessage(text, role) {
+    var messages = document.getElementById('chat-messages');
+    var div = document.createElement('div');
+    div.style.cssText = 'display:flex;gap:10px;align-items:flex-start;' + (role === 'user' ? 'flex-direction:row-reverse;' : '');
+    div.id = role === 'user' ? '' : 'msg-' + Date.now();
+
+    var avatar = document.createElement('div');
+    avatar.style.cssText = 'width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;';
+    if (role === 'user') {
+      avatar.style.background = 'var(--blue)';
+      avatar.textContent = '👤';
+    } else {
+      avatar.style.background = 'var(--green)';
+      avatar.textContent = '🌿';
+    }
+
+    var bubble = document.createElement('div');
+    bubble.style.cssText = 'padding:14px 16px;max-width:80%;font-size:14px;line-height:1.6;border:1px solid var(--border);' +
+      (role === 'user'
+        ? 'background:var(--green);color:white;border-radius:16px 0 16px 16px;border-color:transparent;'
+        : 'background:white;color:var(--text);border-radius:0 16px 16px 16px;');
+    bubble.textContent = text;
+
+    div.appendChild(avatar);
+    div.appendChild(bubble);
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addTypingIndicator() {
+    var messages = document.getElementById('chat-messages');
+    var div = document.createElement('div');
+    div.id = 'typing-indicator';
+    div.style.cssText = 'display:flex;gap:10px;align-items:flex-start;';
+    div.innerHTML = '<div style="width:32px;height:32px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🌿</div><div style="background:white;border-radius:0 16px 16px 16px;padding:14px 16px;border:1px solid var(--border);"><div style="display:flex;gap:4px;align-items:center;"><div style="width:6px;height:6px;background:var(--text-light);border-radius:50%;animation:typing 1.2s infinite 0s;"></div><div style="width:6px;height:6px;background:var(--text-light);border-radius:50%;animation:typing 1.2s infinite 0.2s;"></div><div style="width:6px;height:6px;background:var(--text-light);border-radius:50%;animation:typing 1.2s infinite 0.4s;"></div></div></div>';
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function removeTypingIndicator() {
+    var indicator = document.getElementById('typing-indicator');
+    if (indicator) indicator.remove();
+  }
+
+  var styleEl = document.createElement('style');
+  styleEl.textContent = '@keyframes typing{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}';
+  document.head.appendChild(styleEl);
+
+  document.getElementById('chat-input').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+  });
+
+  var navOpen = false;
+  function toggleNav() {
+    navOpen = !navOpen;
+    var links = document.querySelector('.nav-links');
+    if (navOpen) {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(250,247,242,0.98);padding:20px 5%;border-bottom:1px solid #EDE8DF;gap:20px;z-index:99;';
+    } else {
+      links.style.cssText = '';
+    }
+  }
+</script>
+</body>
+</html>
