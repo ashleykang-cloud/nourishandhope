@@ -110,6 +110,23 @@ exports.handler = async function(event, context) {
       };
     }
 
+    if (action === 'recover') {
+      const response = await fetch(`${SUPABASE_URL}/auth/v1/recover`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY
+        },
+        body: JSON.stringify({ email })
+      });
+      const data = await response.json();
+      return {
+        statusCode: 200,
+        headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      };
+    }
+    
     return { statusCode: 400, body: 'Unknown action' };
 
   } catch (error) {
