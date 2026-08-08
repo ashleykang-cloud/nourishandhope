@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs every Sunday and Wednesday at 10:00 AM UTC
     - cron: '0 10 * * 0,3'
-  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+  workflow_dispatch:
 
 jobs:
   ping:
@@ -13,15 +13,18 @@ jobs:
       - name: Ping Supabase to prevent inactivity pause
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            --max-time 30 \
             "${{ secrets.SUPABASE_URL }}/rest/v1/profiles?select=id&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}") || STATUS="000"
 
           echo "Supabase ping status: $STATUS"
 
-          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 500 ]; then
+          if [ "$STATUS" = "000" ]; then
+            echo "⚠️ Could not reach Supabase — may be paused or unreachable"
+            exit 0
+          elif [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 500 ]; then
             echo "✅ Supabase is alive (HTTP $STATUS)"
           else
             echo "❌ Unexpected response: HTTP $STATUS"
-            exit 1
           fi
